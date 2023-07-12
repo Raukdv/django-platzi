@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from django.conf.urls import (
+handler400, handler403, handler404, handler500
+)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
@@ -28,3 +32,9 @@ urlpatterns += [
         include(('polls.urls', 'polls'), namespace='polls')
     )
 ]
+
+#Handlers
+handler400 = 'polls.views.error.pag_400_bad_request'
+handler403 = 'polls.views.error.pag_403_forbidden'
+handler404 = 'polls.views.error.pag_404_not_found'
+handler500 = 'polls.views.error.pag_500_error_server'

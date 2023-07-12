@@ -1,5 +1,8 @@
 from django.db import models
+from django.utils import timezone
+from django.urls import reverse_lazy
 
+import datetime
 # Create your models here.
 class Question(models.Model):
 
@@ -15,6 +18,19 @@ class Question(models.Model):
         verbose_name="date published"
     )
 
+    def __str__(self) -> str:
+        return self.question_text
+    
+    def was_published_recently(self) -> bool:
+        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+    
+    def get_absolute_url(self):
+        return reverse_lazy('polls:question_detail', args=[self.pk])
+    class Meta:
+        ordering = ['pub_date']
+        verbose_name = "question"
+        verbose_name_plural = "questions"
+    
 class Choice(models.Model):
 
     question = models.ForeignKey(
@@ -36,3 +52,8 @@ class Choice(models.Model):
         default=0,
         verbose_name="votes cast"
     )
+
+    class Meta:
+        ordering = ['choice_text']
+        verbose_name = "choice"
+        verbose_name_plural = "choices"

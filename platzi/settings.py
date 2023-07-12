@@ -63,7 +63,7 @@ ROOT_URLCONF = 'platzi.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], #This will take templaes from BaseApp/templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
